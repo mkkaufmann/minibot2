@@ -17,5 +17,9 @@ public abstract class GSubsystem extends Subsystem {
 
     public abstract void loop();
 
+    public abstract void in();
+
+    public abstract void out();
+
     public abstract void stop();
 }

@@ -8,7 +8,6 @@
 package frc.team4409;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Notifier;
 import frc.team4409.subsystems.Drive;
 import frc.team4409.util.Controller;
 import frc.team4409.util.GSubsystem;
@@ -22,6 +21,7 @@ public class OI extends GSubsystem
     private static OI mInstance;
 
     private static Controller controller;
+    private static Drive drive;
 
     public static OI getInstance(){
         if(mInstance == null){
@@ -31,6 +31,7 @@ public class OI extends GSubsystem
     }
     private OI(){
         controller = RobotMap.driver;
+        drive = Drive.getInstance();
     }
 
 
@@ -65,24 +66,24 @@ public class OI extends GSubsystem
         if(isTele()){
             isDisabledInitialized = false;
             if(!teleopInitialized){
-                Drive.shiftGear(Drive.DriveStates.HALF_SPEED);
+                drive.setWantedState(Drive.DriveState.OPEN_LOOP_DRIVER);
                 teleopInitialized = true;
             }
             if(controller.isAPressed()){
                 System.out.println("a");
-                Drive.shiftGear(Drive.DriveStates.FULL_SPEED);
-            }
-            if(controller.isBPressed()){
-                System.out.println("b");
-                Drive.shiftGear(Drive.DriveStates.HALF_SPEED);
+                drive.setIsSlow(!drive.isSlow());
             }
             if(controller.isXPressed()){
                 System.out.println("x");
-                Drive.shiftGear(Drive.DriveStates.PARK);
+                if(drive.getDriveState() == Drive.DriveState.NEUTRAL){
+                    drive.setWantedState(Drive.DriveState.OPEN_LOOP_DRIVER);
+                }else{
+                    drive.setWantedState(Drive.DriveState.NEUTRAL);
+                }
             }
         }else{
             if(!isDisabledInitialized){
-                Drive.shiftGear(Drive.DriveStates.PARK);
+                drive.setWantedState(Drive.DriveState.NEUTRAL);
                 isDisabledInitialized = true;
             }
             teleopInitialized = false;
@@ -90,8 +91,19 @@ public class OI extends GSubsystem
     }
 
     @Override
+    public void in() {
+
+    }
+
+    @Override
+    public void out() {
+
+    }
+
+
+    @Override
     public void stop(){
-        Drive.getInstance().shiftGear(Drive.DriveStates.PARK);
+        drive.setWantedState(Drive.DriveState.NEUTRAL);
     }
     // CREATING BUTTONS
     // One type of button is a joystick button which is any button on a

@@ -9,9 +9,12 @@ package frc.team4409;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team4409.commands.DriveStraightTime;
+import frc.team4409.commands.auton.Baseline;
 import frc.team4409.subsystems.Drive;
 import frc.team4409.util.GSubsystemManager;
 
@@ -34,7 +37,7 @@ public class Robot extends TimedRobot
     public static GSubsystemManager allSubsystems = new GSubsystemManager(Arrays.asList(Drive.getInstance(), OI.getInstance()));
 
     private Command autonomousCommand;
-    private SendableChooser<Command> chooser = new SendableChooser<>();
+    private SendableChooser<Command> chooser = new SendableChooser<Command>();
 
     /**
      * This function is run when the robot is first started up and should be
@@ -44,7 +47,7 @@ public class Robot extends TimedRobot
     public void robotInit() 
     {
         oi = OI.getInstance();
-        // chooser.addObject("My Auto", new MyAutoCommand());
+        chooser.addDefault("Baseline", new Baseline());
         SmartDashboard.putData("Auto mode", chooser);
 
     }
@@ -86,16 +89,11 @@ public class Robot extends TimedRobot
     {
         autonomousCommand = chooser.getSelected();
 
-        /*
-         * String autoSelected = SmartDashboard.getString("Auto Selector",
-         * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-         * = new MyAutoCommand(); break; case "Default Auto": default:
-         * autonomousCommand = new ExampleCommand(); break; }
-         */
 
         // schedule the autonomous command (example)
         if (autonomousCommand != null) 
         {
+            System.out.println("started");
             autonomousCommand.start();
         }
     }
