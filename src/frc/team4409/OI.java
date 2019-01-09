@@ -8,6 +8,7 @@
 package frc.team4409;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import frc.team4409.subsystems.Claw;
 import frc.team4409.subsystems.Drive;
 import frc.team4409.util.Controller;
 import frc.team4409.util.GSubsystem;
@@ -22,6 +23,7 @@ public class OI extends GSubsystem
 
     private static Controller controller;
     private static Drive drive;
+    private static Claw claw;
 
     public static OI getInstance(){
         if(mInstance == null){
@@ -32,6 +34,7 @@ public class OI extends GSubsystem
     private OI(){
         controller = RobotMap.driver;
         drive = Drive.getInstance();
+        claw = Claw.getInstance();
     }
 
 
@@ -80,6 +83,9 @@ public class OI extends GSubsystem
                 }else{
                     drive.setWantedState(Drive.DriveState.NEUTRAL);
                 }
+            }
+            if(controller.isRBPressed()){
+                claw.toggle();
             }
         }else{
             if(!isDisabledInitialized){

@@ -9,6 +9,8 @@ public class Controller extends Joystick {
     private LatchedBoolean b = new LatchedBoolean();
     private LatchedBoolean y = new LatchedBoolean();
     private LatchedBoolean x = new LatchedBoolean();
+    private LatchedBoolean lb = new LatchedBoolean();
+    private LatchedBoolean rb = new LatchedBoolean();
 
     public Controller(int port){
         super(port);
@@ -46,11 +48,21 @@ public class Controller extends Joystick {
         return y.update(this.getRawButton(Buttons.Y));
     }
 
+    public boolean isLBPressed(){
+        return lb.update(this.getRawButton(Buttons.LB));
+    }
+
+    public boolean isRBPressed(){
+        return rb.update(this.getRawButton(Buttons.RB));
+    }
+
     private static class Buttons{
         public static int A = 1;
         public static int B = 2;
         public static int X = 3;
         public static int Y = 4;
+        public static int LB = 5;
+        public static int RB = 6;
     }
 
 }

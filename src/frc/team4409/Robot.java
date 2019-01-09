@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team4409.commands.DriveStraightTime;
 import frc.team4409.commands.auton.Baseline;
+import frc.team4409.subsystems.Claw;
 import frc.team4409.subsystems.Drive;
 import frc.team4409.util.GSubsystemManager;
 
@@ -34,7 +35,7 @@ public class Robot extends TimedRobot
 
     public static final Drive exampleSubsystem = Drive.getInstance();
     public static OI oi;
-    public static GSubsystemManager allSubsystems = new GSubsystemManager(Arrays.asList(Drive.getInstance(), OI.getInstance()));
+    public static GSubsystemManager allSubsystems = new GSubsystemManager(Arrays.asList(Drive.getInstance(), OI.getInstance(), Claw.getInstance()));
 
     private Command autonomousCommand;
     private SendableChooser<Command> chooser = new SendableChooser<Command>();

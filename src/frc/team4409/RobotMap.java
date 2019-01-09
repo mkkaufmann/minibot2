@@ -9,6 +9,7 @@ package frc.team4409;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Servo;
 import frc.team4409.util.Controller;
 
 /**
@@ -22,6 +23,7 @@ public class RobotMap
     public static TalonSRX left = new TalonSRX(0);
     public static TalonSRX right = new TalonSRX(1);
     public static Controller driver = new Controller(0);
+    public static Servo claw = new Servo(0);
 
     // For example to map the left and right motors, you could define the
     // following variables to use with your drivetrain subsystem.
