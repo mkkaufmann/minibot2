@@ -10,6 +10,8 @@ public class Claw extends GSubsystem {
     private static Claw mClaw = null;
     private static ClawState mClawState = ClawState.CLOSED;
     private static ClawState mWantedClawState = ClawState.OPEN;
+    private static final double closedServo = 60;
+    private static final double openServo = 120;
 
     public static Claw getInstance(){
         if(mClaw == null){
@@ -66,9 +68,9 @@ public class Claw extends GSubsystem {
     @Override
     public void out(){
         if(mClawState == ClawState.OPEN){
-            servo.setAngle(120);
+            servo.setAngle(openServo);
         }else{
-            servo.setAngle(60);
+            servo.setAngle(closedServo);
         }
 
     }

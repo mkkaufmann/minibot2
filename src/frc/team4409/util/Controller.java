@@ -1,6 +1,7 @@
 package frc.team4409.util;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.buttons.Button;
 
 public class Controller extends Joystick {
@@ -54,6 +55,32 @@ public class Controller extends Joystick {
 
     public boolean isRBPressed(){
         return rb.update(this.getRawButton(Buttons.RB));
+    }
+
+    public void startLRumble(){
+        this.setRumble(GenericHID.RumbleType.kLeftRumble, 1);
+    }
+
+    public void startRRumble(){
+        this.setRumble(GenericHID.RumbleType.kRightRumble, 1);
+    }
+
+    public void endLRumble(){
+        this.setRumble(GenericHID.RumbleType.kLeftRumble, 0);
+    }
+
+    public void endRRumble(){
+        this.setRumble(GenericHID.RumbleType.kRightRumble, 0);
+    }
+
+    public void startRumble(){
+        this.startLRumble();
+        this.startRRumble();
+    }
+
+    public void endRumble(){
+        this.endLRumble();
+        this.endRRumble();
     }
 
     private static class Buttons{

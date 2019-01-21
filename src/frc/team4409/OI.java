@@ -12,6 +12,7 @@ import frc.team4409.subsystems.Claw;
 import frc.team4409.subsystems.Drive;
 import frc.team4409.util.Controller;
 import frc.team4409.util.GSubsystem;
+import frc.team4409.commands.Rumble;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -24,6 +25,11 @@ public class OI extends GSubsystem
     private static Controller controller;
     private static Drive drive;
     private static Claw claw;
+
+    private static Rumble shortLRumble;
+    private static Rumble shortRRumble;
+    private static Rumble longRumble;
+    private static boolean isHatch = true;
 
     public static OI getInstance(){
         if(mInstance == null){
@@ -86,6 +92,16 @@ public class OI extends GSubsystem
             }
             if(controller.isRBPressed()){
                 claw.toggle();
+            }
+            if(controller.isLBPressed()){
+                isHatch = !isHatch;
+                if(isHatch){
+                    shortLRumble = new Rumble(true, 0.5);
+                    shortLRumble.start();
+                }else{
+                    shortRRumble = new Rumble(false, 0.5);
+                    shortRRumble.start();
+                }
             }
         }else{
             if(!isDisabledInitialized){
